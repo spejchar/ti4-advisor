@@ -1712,7 +1712,7 @@ async function sendMsg() {
   } else { userContent=text; }
   history.push({role:'user',content:userContent});
   try{
-    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:buildSystemBlocks(),messages:history,_includeThundersEdge:(el('expansions')?.value==='te')})});
+    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1500,system:buildSystemBlocks(),messages:history,_includeThundersEdge:(el('expansions')?.value==='te')})});
     const data=await resp.json(); hideThinking();
     if(data.error){addMsg('assistant','**Error**\n\n'+data.error.message);history.pop();setStatus(false,'Error');}
     else{const reply=data.content?.find(b=>b.type==='text')?.text||'No response.';addMsg('assistant',reply);history.push({role:'assistant',content:reply});const n=history.filter(m=>m.role==='user').length;setStatus(false,n+' exchange'+(n!==1?'s':''));}
